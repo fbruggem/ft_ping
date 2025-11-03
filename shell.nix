@@ -12,20 +12,25 @@ pkgs.mkShell {
 
   buildInputs = with pkgs; [
     gdb
+    git
+    openssh
     netcat
     busybox
     inetutils
-    docker
   ];
 
   shellHook = ''
-    set -o vi
-    alias ping=${pkgs.inetutils}/bin/ping
-    alias db="docker build -t my‑debian13‑nix ."
-    alias dr="docker run ‑it my‑debian13‑nix"
     if [ "''${IN_NIX_SHELL:-}" != "pure" ]; then
-      echo "❗ Error: This script must be run inside a Nix shell with --pure mode. IN_NIX_SHELL==''${IN_NIX_SHELL:-})"
+      echo "❗ Error: This script must be run inside a Nix shell with pure mode. Run 'nix-shell --pure' IN_NIX_SHELL==''${IN_NIX_SHELL:-})"
       exit 1
     fi
+
+    set -o vi
+    export PS1="\[\e[0;32m\]\W>\[\e[0m\] "
+          if [ -n "''${SSH_AUTH_SOCK-}" ]; then
+            export SSH_AUTH_SOCK="''${SSH_AUTH_SOCK}"
+          fi
+
+    alias ping=${pkgs.inetutils}/bin/ping
   '';
 }
