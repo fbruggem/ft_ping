@@ -14,10 +14,18 @@ pkgs.mkShell {
     gdb
     netcat
     busybox
-    # add extra tools if you want
+    inetutils
+    docker
   ];
 
   shellHook = ''
     set -o vi
+    alias ping=${pkgs.inetutils}/bin/ping
+    alias db="docker build -t my‑debian13‑nix ."
+    alias dr="docker run ‑it my‑debian13‑nix"
+    if [ "''${IN_NIX_SHELL:-}" != "pure" ]; then
+      echo "❗ Error: This script must be run inside a Nix shell with --pure mode. IN_NIX_SHELL==''${IN_NIX_SHELL:-})"
+      exit 1
+    fi
   '';
 }
