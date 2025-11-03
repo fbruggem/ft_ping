@@ -27,9 +27,6 @@ pkgs.mkShell {
 
     set -o vi
     export PS1="\[\e[0;32m\]\W>\[\e[0m\] "
-          if [ -n "''${SSH_AUTH_SOCK-}" ]; then
-            export SSH_AUTH_SOCK="''${SSH_AUTH_SOCK}"
-          fi
 
     alias ping=${pkgs.inetutils}/bin/ping
   '';
