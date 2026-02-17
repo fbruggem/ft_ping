@@ -1,0 +1,17 @@
+{
+  "name": "Codespace with Nix",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "VARIANT": "1"  // can change if you want a different base
+    }
+  },
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  "extensions": [
+    "arrterian.nix-env-selector"
+  ],
+  "postCreateCommand": "echo 'Nix setup done'",
+  "remoteUser": "vscode"
+}
