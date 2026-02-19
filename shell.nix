@@ -16,6 +16,7 @@ pkgs.mkShell {
 
   buildInputs = with pkgs; [
     clang-tools
+    man-db
     man-pages
     man-pages-posix
     sudo
