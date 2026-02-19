@@ -19,6 +19,7 @@ pkgs.mkShell {
     man-db
     man-pages
     man-pages-posix
+    strace
     sudo
     gdb
     git
