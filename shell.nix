@@ -28,6 +28,7 @@ pkgs.mkShell {
     busybox
     pkgsInetUtils.inetutils
     neovim
+    ripgrep
   ];
 
   shellHook = ''

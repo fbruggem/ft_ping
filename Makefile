@@ -1,6 +1,6 @@
 CC = clang
 
-SRC = main.c
+SRC = main.c parse.c send.c icmp.c print.c
 OBJ = $(SRC:.c=.o)
 
 NAME = ft_ping
