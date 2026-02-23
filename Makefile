@@ -1,4 +1,3 @@
-
 CC = clang
 
 SRC = main.c
