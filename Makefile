@@ -1,6 +1,6 @@
 CC = clang
 
-SRC = main.c parse.c send.c icmp.c print.c
+SRC = main.c parse.c send.c icmp.c print.c loop.c calc.c recv.c
 OBJ = $(SRC:.c=.o)
 
 NAME = ft_ping
@@ -8,7 +8,7 @@ NAME = ft_ping
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -o $(NAME)
+	$(CC) $(OBJ) -fsanitize=undefined -O0 -o $(NAME)
 
 install:
 	mkdir -p  $(DESTDIR)/bin

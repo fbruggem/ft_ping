@@ -29,6 +29,7 @@ pkgs.mkShell {
     pkgsInetUtils.inetutils
     neovim
     ripgrep
+    valgrind
   ];
 
   shellHook = ''
