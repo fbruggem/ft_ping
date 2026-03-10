@@ -15,11 +15,13 @@ int main(int ac, char **av) {
 
   __uint16_t sequence = 0;
   float packets_received[MAX_ICMP_SENDS] = {0};
-  if (loop(&addr, &flags, &sequence, packets_received))
+  int duplicates = 0;
+  if (loop(&addr, &flags, &sequence, packets_received, &duplicates))
     return -1;
 
-  if (print_summary(&addr, sequence, packets_received))
+  if (print_summary(&addr, sequence, packets_received, &duplicates))
     return -1;
+
   return 0;
 }
 

@@ -7,7 +7,7 @@
 #include <sys/types.h>
 
 int packet_recv(int socket_fd, struct sockaddr_in *sock_addr,
-                float *packets_received) {
+                float *packets_received, int *duplicates_amount) {
   socklen_t socket_addr_len = sizeof(struct sockaddr_in);
 
   while (1) {
@@ -49,11 +49,17 @@ int packet_recv(int socket_fd, struct sockaddr_in *sock_addr,
     if (checksum_wrong)
       continue;
 
+    const bool packet_already_recieved =
+        packets_received[icmp->sequence] != 0.0f;
+    if (packet_already_recieved) {
+      *duplicates_amount += 1;
+    }
+
     packets_received[icmp->sequence] =
         timeval_diff(&icmp->sent_at, &recieved_at);
     if (icmp->type == ICMP_ECHOREPLY)
       icmp_print_echo_reply(iphdr, (struct icmp_echo *)icmp, bytes_read,
-                            &recieved_at);
+                            &recieved_at, packet_already_recieved);
     else
       icmp_print_err(iphdr, (struct icmp_echo *)icmp, bytes_read);
   }

@@ -21,7 +21,7 @@ void signal_interrup_init() {
 }
 
 int loop(struct address *addr, struct flags *flags, __uint16_t *sequence,
-         float *packets_received) {
+         float *packets_received, int *duplicates_amount) {
   struct sockaddr_in sock_addr_send = {0};
   sock_addr_send.sin_family = AF_INET;
   sock_addr_send.sin_addr = addr->binary;
@@ -57,7 +57,8 @@ int loop(struct address *addr, struct flags *flags, __uint16_t *sequence,
       return -1;
     (*sequence)++;
 
-    if (packet_recv(socket_fd, &sock_addr_recv, packets_received))
+    if (packet_recv(socket_fd, &sock_addr_recv, packets_received,
+                    duplicates_amount))
       return -1;
   }
   close(socket_fd);

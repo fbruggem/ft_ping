@@ -62,23 +62,24 @@ __uint16_t checksum(void *buf, size_t len);
 #define MAX_ICMP_SENDS 0x1000
 // loop.c
 int loop(struct address *addr, struct flags *flags, __uint16_t *sequence,
-         float *packets_received);
+         float *packets_received, int *duplicates_amount);
 
 // send.c
 int packet_send(int socket_fd, __uint16_t sequence,
                 const struct sockaddr_in *sock_addr);
 // recv.c
 int packet_recv(int socket_fd, struct sockaddr_in *sock_addr,
-                float *packets_received);
+                float *packets_received, int *duplicates_amount);
 
 // print.c
 int msg_start_ping(struct address *addr, struct flags *flags);
 int icmp_print_echo_reply(const struct iphdr *iphdr, struct icmp_echo *icmp,
-                          int bytes_read, struct timeval *recieved_at);
+                          int bytes_read, struct timeval *recieved_at,
+                          bool is_duplicate);
 int icmp_print_err(const struct iphdr *iphdr, struct icmp_echo *icmp,
                    int bytes_read);
 int print_summary(struct address *addr, __uint16_t packets_sent,
-                  float *packets_received);
+                  float *packets_received, int *duplicates_amount);
 
 // calc.c
 float timeval_diff(struct timeval *start, struct timeval *end);

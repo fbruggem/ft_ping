@@ -91,7 +91,7 @@ int parse_addr(char *s, struct address *addr) {
   } else {
     struct hostent *he = gethostbyname(s);
     if (he == NULL) {
-      perror("gethostbyname");
+      printf("error parsing hostname/ip address\n");
       return 1;
     }
 
